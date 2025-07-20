@@ -16,7 +16,7 @@ function UserCredits() {
   return (
     <div className="flex items-center text-sm font-medium text-gray-700">
       <span>{remainingMessages}</span>
-      <span className="ml-1">credits</span>
+      <span className="ml-1">计算次数</span>
     </div>
   );
 }
@@ -47,13 +47,9 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Image
-                src="/firecrawl-logo-with-fire.webp"
-                alt="Firecrawl"
-                width={120}
-                height={25}
-                priority
-              />
+              <div className="text-xl font-bold text-green-600">
+                健康计算器
+              </div>
             </Link>
           </div>
 
@@ -61,44 +57,44 @@ export function Navbar() {
             {session && (
               <>
                 <Link
-                  href="/chat"
+                  href="/health-calculator"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
-                  Basic Chat
+                  健康计算
                 </Link>
                 <Link
                   href="/brand-monitor"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
-                  Brand Monitor
+                  健康分析
                 </Link>
               </>
             )}
             <Link
-              href="/plans"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-            >
-              Plans
-            </Link>
+                href="/plans"
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+              >
+                健康套餐
+              </Link>
             {session && (
               <UserCredits />
             )}
             {isPending ? (
-              <div className="text-sm text-gray-400">Loading...</div>
+              <div className="text-sm text-gray-400">加载中...</div>
             ) : session ? (
               <>
                 <Link
                   href="/dashboard"
                   className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-8 px-3"
                 >
-                  Dashboard
+                  健康仪表板
                 </Link>
                 <button
                   onClick={handleLogout}
                   disabled={isLoggingOut}
                   className="btn-firecrawl-default inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 h-8 px-3"
                 >
-                  {isLoggingOut ? 'Logging out...' : 'Logout'}
+                  {isLoggingOut ? '退出中...' : '退出'}
                 </button>
               </>
             ) : (
@@ -107,13 +103,13 @@ export function Navbar() {
                   href="/login"
                   className="bg-black text-white hover:bg-gray-800 inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-8 px-3 shadow-sm hover:shadow-md"
                 >
-                  Login
+                  登录
                 </Link>
                 <Link 
                   href="/register"
                   className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-8 px-3"
                 >
-                  Register
+                  注册
                 </Link>
               </>
             )}

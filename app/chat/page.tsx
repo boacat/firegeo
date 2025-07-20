@@ -92,15 +92,15 @@ function ChatContent({ session }: { session: any }) {
             className="w-full btn-firecrawl-orange"
           >
             <Plus className="w-4 h-4 mr-2" />
-            New Chat
+新建咨询
           </Button>
         </div>
         
         <div className="overflow-y-auto flex-1">
           {conversationsLoading ? (
-            <div className="p-4 text-center text-gray-500">Loading conversations...</div>
+            <div className="p-4 text-center text-gray-500">加载咨询记录中...</div>
           ) : conversations?.length === 0 ? (
-            <div className="p-4 text-center text-gray-500">No conversations yet</div>
+            <div className="p-4 text-center text-gray-500">暂无咨询记录</div>
           ) : (
             <div className="space-y-1 p-2">
               {conversations?.map((conversation) => (
@@ -114,7 +114,7 @@ function ChatContent({ session }: { session: any }) {
                   <div className="flex justify-between items-start">
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">
-                        {conversation.title || 'Untitled Conversation'}
+                        {conversation.title || '未命名咨询'}
                       </p>
                       <p className="text-xs text-gray-500">
                         {conversation.lastMessageAt && format(new Date(conversation.lastMessageAt), 'MMM d, h:mm a')}
@@ -139,7 +139,7 @@ function ChatContent({ session }: { session: any }) {
         
         <div className="p-4 border-t bg-gray-50">
           <div className="text-sm text-gray-600">
-            <p>Messages remaining:</p>
+            <p>剩余咨询次数:</p>
             <p className="text-2xl font-bold text-orange-600">{remainingMessages}</p>
           </div>
         </div>
@@ -158,7 +158,7 @@ function ChatContent({ session }: { session: any }) {
               {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
             <h1 className="font-semibold">
-              {currentConversation?.title || 'New Conversation'}
+              {currentConversation?.title || '健康咨询'}
             </h1>
           </div>
         </div>
@@ -169,27 +169,27 @@ function ChatContent({ session }: { session: any }) {
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading your account data...</p>
+                <p className="text-gray-600">加载账户数据中...</p>
               </div>
             </div>
           ) : !hasMessages ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center max-w-md">
                 <MessageSquare className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h2 className="text-xl font-semibold mb-2">Credit-Based Messaging</h2>
+                <h2 className="text-xl font-semibold mb-2">健康咨询服务</h2>
                 <p className="text-gray-600 mb-4">
-                  This is a demonstration of the credit-based messaging system. Each message consumes credits from your account balance.
+                  专业的健康咨询服务，每次咨询将消耗您账户中的咨询次数。
                 </p>
                 <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-4">
                   <p className="text-sm text-orange-800">
-                    You currently have <span className="font-bold">{remainingMessages}</span> message credits available.
+                    您当前还有 <span className="font-bold">{remainingMessages}</span> 次咨询机会。
                   </p>
                 </div>
                 <Button
                   onClick={() => router.push('/plans')}
                   className="btn-firecrawl-orange"
                 >
-                  Get More Credits
+获取更多咨询次数
                 </Button>
               </div>
             </div>
@@ -232,9 +232,9 @@ function ChatContent({ session }: { session: any }) {
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <MessageSquare className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h2 className="text-xl font-semibold mb-2">Start a Conversation</h2>
+                <h2 className="text-xl font-semibold mb-2">开始健康咨询</h2>
                 <p className="text-gray-600">
-                  Send a message to begin chatting with AI
+                  发送消息开始与健康顾问进行咨询
                 </p>
               </div>
             </div>
@@ -254,7 +254,7 @@ function ChatContent({ session }: { session: any }) {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={hasMessages ? "Type your message..." : "No messages available"}
+              placeholder={hasMessages ? "请输入您的健康问题..." : "暂无咨询次数"}
               disabled={!hasMessages || sendMessage.isPending}
               className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:bg-gray-100 disabled:text-gray-500"
             />

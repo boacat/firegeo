@@ -16,7 +16,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (searchParams.get('reset') === 'success') {
-      setSuccess('Password reset successfully. You can now login with your new password.');
+      setSuccess('密码重置成功，您现在可以使用新密码登录。');
     }
     
     // Pre-fill email if passed from registration page
@@ -38,7 +38,7 @@ function LoginForm() {
       });
       
       if (response.error) {
-        setError(response.error.message || 'Failed to login');
+        setError(response.error.message || '登录失败');
         setLoading(false);
         return;
       }
@@ -47,7 +47,7 @@ function LoginForm() {
       const returnUrl = searchParams.get('from') || '/dashboard';
       window.location.replace(returnUrl);
     } catch (err: any) {
-      setError(err.message || 'Failed to login');
+      setError(err.message || '登录失败');
       setLoading(false);
     }
   };
@@ -58,9 +58,9 @@ function LoginForm() {
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-12 items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-400/90 via-orange-500/90 to-orange-600/90" />
         <div className="relative z-10 max-w-md text-white">
-          <h1 className="text-4xl font-bold mb-4">Welcome back!</h1>
+          <h1 className="text-4xl font-bold mb-4">欢迎回来！</h1>
           <p className="text-lg opacity-90">
-            Sign in to continue building amazing things with our powerful API.
+            登录以继续使用我们强大的健康管理工具。
           </p>
         </div>
         {/* Decorative elements */}
@@ -82,12 +82,12 @@ function LoginForm() {
               />
             </div>
             <h2 className="text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+              登录您的账户
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Or{' '}
+              或者{' '}
               <Link href="/register" className="font-medium text-orange-600 hover:text-orange-500">
-                create a new account
+                创建新账户
               </Link>
             </p>
           </div>
@@ -95,7 +95,7 @@ function LoginForm() {
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email address
+                  邮箱地址
                 </label>
                 <input
                   id="email"
@@ -106,12 +106,12 @@ function LoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                  placeholder="Enter your email"
+                  placeholder="请输入您的邮箱"
                 />
               </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
+                  密码
                 </label>
                 <input
                   id="password"
@@ -122,7 +122,7 @@ function LoginForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                  placeholder="Enter your password"
+                  placeholder="请输入您的密码"
                 />
               </div>
             </div>
@@ -136,11 +136,11 @@ function LoginForm() {
                   className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
+                  记住我
                 </label>
               </div>
               <Link href="/forgot-password" className="text-sm text-orange-600 hover:text-orange-500">
-                Forgot your password?
+                忘记密码？
               </Link>
             </div>
 
@@ -162,7 +162,7 @@ function LoginForm() {
                 disabled={loading}
                 className="btn-firecrawl-default w-full inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 h-10 px-4"
               >
-                {loading ? 'Signing in...' : 'Sign in'}
+                {loading ? '登录中...' : '登录'}
               </button>
             </div>
           </form>
@@ -174,7 +174,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">加载中...</div>}>
       <LoginForm />
     </Suspense>
   );

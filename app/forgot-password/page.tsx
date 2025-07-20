@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
       });
       setSuccess(true);
     } catch (err: any) {
-      setError(err.message || 'Failed to send reset email');
+      setError(err.message || '发送重置邮件失败');
     } finally {
       setLoading(false);
     }
@@ -39,9 +39,9 @@ export default function ForgotPasswordPage() {
         <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-12 items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-400/90 via-orange-500/90 to-orange-600/90" />
           <div className="relative z-10 max-w-md text-white">
-            <h1 className="text-4xl font-bold mb-4">Check your inbox!</h1>
+            <h1 className="text-4xl font-bold mb-4">请查看您的邮箱！</h1>
             <p className="text-lg opacity-90">
-              We've sent you instructions to reset your password. Check your email to continue.
+              我们已向您发送了重置密码的说明。请查看您的邮箱以继续操作。
             </p>
           </div>
           {/* Decorative elements */}
@@ -59,21 +59,21 @@ export default function ForgotPasswordPage() {
                 </svg>
               </div>
               <h2 className="text-3xl font-extrabold text-gray-900">
-                Check your email
+                请查看您的邮箱
               </h2>
               <p className="mt-2 text-gray-600">
-                We've sent a password reset link to
+                我们已向以下邮箱发送了密码重置链接
               </p>
               <p className="mt-1 text-lg font-medium text-gray-900">{email}</p>
               <p className="mt-4 text-sm text-gray-500">
-                Didn't receive the email? Check your spam folder or try again.
+                没有收到邮件？请检查您的垃圾邮件文件夹或重试。
               </p>
               <Link 
                 href="/login" 
                 className="mt-6 inline-flex items-center text-sm text-orange-600 hover:text-orange-500"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to login
+                返回登录
               </Link>
             </div>
           </div>
@@ -88,9 +88,9 @@ export default function ForgotPasswordPage() {
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-12 items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-400/90 via-orange-500/90 to-orange-600/90" />
         <div className="relative z-10 max-w-md text-white">
-          <h1 className="text-4xl font-bold mb-4">Forgot your password?</h1>
+          <h1 className="text-4xl font-bold mb-4">忘记密码了？</h1>
           <p className="text-lg opacity-90">
-            No worries! We'll help you reset it and get back to building amazing things.
+            别担心！我们将帮助您重置密码，让您重新开始健康管理之旅。
           </p>
         </div>
         {/* Decorative elements */}
@@ -112,17 +112,17 @@ export default function ForgotPasswordPage() {
               />
             </div>
             <h2 className="text-center text-3xl font-extrabold text-gray-900">
-              Reset your password
+              重置您的密码
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Enter your email and we'll send you a reset link
+              输入您的邮箱，我们将向您发送重置链接
             </p>
           </div>
           
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email address
+                邮箱地址
               </label>
               <input
                 id="email"
@@ -133,7 +133,7 @@ export default function ForgotPasswordPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                placeholder="Enter your email"
+                placeholder="请输入您的邮箱"
               />
             </div>
 
@@ -149,14 +149,14 @@ export default function ForgotPasswordPage() {
                 disabled={loading}
                 className="btn-firecrawl-default w-full inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 h-10 px-4"
               >
-                {loading ? 'Sending...' : 'Send reset link'}
+                {loading ? '发送中...' : '发送重置链接'}
               </button>
             </div>
 
             <div className="text-center">
               <Link href="/login" className="text-sm text-orange-600 hover:text-orange-500 inline-flex items-center">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to login
+                返回登录
               </Link>
             </div>
           </form>

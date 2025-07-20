@@ -9,19 +9,14 @@ export function Footer() {
           {/* Logo and description */}
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
-              <Image
-                src="/firecrawl-logo-with-fire.webp"
-                alt="Firecrawl"
-                width={120}
-                height={25}
-              />
+              <h2 className="text-xl font-bold text-zinc-900">健康计算器</h2>
             </div>
             <p className="text-sm mb-4">
-              Turn websites into structured data. Built for AI apps and LLMs.
+              专业的健康数据分析平台，为您提供精准的健康指标计算和个性化健康建议。
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://github.com/firecrawl"
+                href="#"
                 className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -31,7 +26,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://twitter.com/firecrawl"
+                href="#"
                 className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -41,7 +36,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="https://discord.gg/firecrawl"
+                href="#"
                 className="text-zinc-400 hover:text-zinc-900 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -53,55 +48,55 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Product */}
+          {/* 健康工具 */}
           <div>
-            <h3 className="text-zinc-900 font-semibold mb-4">Product</h3>
+            <h3 className="text-zinc-900 font-semibold mb-4">健康工具</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/plans" className="hover:text-zinc-900 transition-colors">
-                  Plans
+                <Link href="/bmi-calculator" className="hover:text-zinc-900 transition-colors">
+                  BMI计算器
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-zinc-900 transition-colors">
-                  Documentation
-                </a>
+                <Link href="/calorie-calculator" className="hover:text-zinc-900 transition-colors">
+                  卡路里计算器
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-zinc-900 transition-colors">
-                  API Reference
-                </a>
+                <Link href="/plans" className="hover:text-zinc-900 transition-colors">
+                  健康套餐
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-zinc-900 transition-colors">
-                  Demo
-                </a>
+                <Link href="/dashboard" className="hover:text-zinc-900 transition-colors">
+                  健康仪表板
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Company */}
+          {/* 关于我们 */}
           <div>
-            <h3 className="text-zinc-900 font-semibold mb-4">Company</h3>
+            <h3 className="text-zinc-900 font-semibold mb-4">关于我们</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  About
+                  关于我们
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  Blog
+                  健康资讯
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  Careers
+                  加入我们
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  Contact
+                  联系我们
                 </a>
               </li>
             </ul>
@@ -111,14 +106,14 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-zinc-200">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm">
-              © {new Date().getFullYear()} Firecrawl. All rights reserved.
+              © {new Date().getFullYear()} 健康计算器. 保留所有权利。
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-sm hover:text-zinc-900 transition-colors">
-                Privacy Policy
+                隐私政策
               </a>
               <a href="#" className="text-sm hover:text-zinc-900 transition-colors">
-                Terms of Service
+                服务条款
               </a>
             </div>
           </div>

@@ -70,13 +70,13 @@ function BrandMonitorContent({ session }: { session: any }) {
             <div className="flex items-center justify-between">
               <div className="text-center flex-1">
                 <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-2 animate-fade-in-up">
-                  <span className="block text-zinc-900">FireGEO Monitor</span>
+                  <span className="block text-zinc-900">健康数据分析</span>
                   <span className="block bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
-                    AI Brand Visibility Platform
+                    智能健康监测平台
                   </span>
                 </h1>
                 <p className="text-lg text-zinc-600 animate-fade-in-up animation-delay-200">
-                  Track how AI models rank your brand against competitors
+                  全面分析您的健康数据，提供个性化健康建议
                 </p>
               </div>
             </div>
@@ -108,15 +108,15 @@ function BrandMonitorContent({ session }: { session: any }) {
               className="w-full btn-firecrawl-orange"
             >
               <Plus className="w-4 h-4 mr-2" />
-              New Analysis
+新建健康分析
             </Button>
           </div>
           
           <div className="overflow-y-auto flex-1">
             {analysesLoading ? (
-              <div className="p-4 text-center text-gray-500">Loading analyses...</div>
+              <div className="p-4 text-center text-gray-500">加载分析数据中...</div>
             ) : analyses?.length === 0 ? (
-              <div className="p-4 text-center text-gray-500">No analyses yet</div>
+              <div className="p-4 text-center text-gray-500">暂无健康分析记录</div>
             ) : (
               <div className="space-y-1 p-2">
                 {analyses?.map((analysis) => (
@@ -130,7 +130,7 @@ function BrandMonitorContent({ session }: { session: any }) {
                     <div className="flex justify-between items-start">
                       <div className="flex-1 min-w-0">
                         <p className="font-medium truncate">
-                          {analysis.companyName || 'Untitled Analysis'}
+                          {analysis.companyName || '未命名健康分析'}
                         </p>
                         <p className="text-sm text-gray-500 truncate">
                           {analysis.url}
@@ -176,10 +176,10 @@ function BrandMonitorContent({ session }: { session: any }) {
       <ConfirmationDialog
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        title="Delete Analysis"
-        description="Are you sure you want to delete this analysis? This action cannot be undone."
-        confirmText="Delete"
-        cancelText="Cancel"
+        title="删除健康分析"
+        description="确定要删除这个健康分析吗？此操作无法撤销。"
+        confirmText="删除"
+        cancelText="取消"
         onConfirm={confirmDelete}
         isLoading={deleteAnalysis.isPending}
       />
@@ -202,7 +202,7 @@ export default function BrandMonitorPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">Please log in to access the brand monitor</p>
+          <p className="text-gray-600">请登录以访问健康数据分析</p>
         </div>
       </div>
     );

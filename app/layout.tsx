@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SaaS Starter",
-  description: "Next.js SaaS Starter with Better Auth",
+  title: "健康计算器 - 智能健康管理平台",
+  description: "专业的健康计算工具，包括BMI计算器、卡路里计算器、体脂率计算等，帮助您科学管理健康。",
 };
 
 export default function RootLayout({

@@ -18,7 +18,7 @@ function ResetPasswordForm() {
 
   useEffect(() => {
     if (!token) {
-      setError('Invalid or missing reset token');
+      setError('无效或缺失的重置令牌');
     }
   }, [token]);
 
@@ -27,12 +27,12 @@ function ResetPasswordForm() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('密码不匹配');
       return;
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters');
+      setError('密码长度至少8位');
       return;
     }
 
@@ -47,7 +47,7 @@ function ResetPasswordForm() {
       // Redirect to login with success message
       router.push('/login?reset=success');
     } catch (err: any) {
-      setError(err.message || 'Failed to reset password');
+      setError(err.message || '重置密码失败');
     } finally {
       setLoading(false);
     }
@@ -60,9 +60,9 @@ function ResetPasswordForm() {
         <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-12 items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-400/90 via-orange-500/90 to-orange-600/90" />
           <div className="relative z-10 max-w-md text-white">
-            <h1 className="text-4xl font-bold mb-4">Invalid Link</h1>
+            <h1 className="text-4xl font-bold mb-4">无效链接</h1>
             <p className="text-lg opacity-90">
-              This password reset link has expired or is invalid. Please request a new one.
+              此密码重置链接已过期或无效。请申请新的重置链接。
             </p>
           </div>
           {/* Decorative elements */}
@@ -80,16 +80,16 @@ function ResetPasswordForm() {
                 </svg>
               </div>
               <h2 className="text-3xl font-extrabold text-gray-900">
-                Invalid Reset Link
+                无效的重置链接
               </h2>
               <p className="mt-2 text-gray-600">
-                This password reset link is invalid or has expired.
+                此密码重置链接无效或已过期。
               </p>
               <Link 
                 href="/forgot-password"
                 className="mt-6 inline-block btn-firecrawl-default whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-10 px-6 py-2"
               >
-                Request new reset link
+                申请新的重置链接
               </Link>
             </div>
           </div>
@@ -104,22 +104,22 @@ function ResetPasswordForm() {
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 p-12 items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-400/90 via-orange-500/90 to-orange-600/90" />
         <div className="relative z-10 max-w-md text-white">
-          <h1 className="text-4xl font-bold mb-4">Almost there!</h1>
+          <h1 className="text-4xl font-bold mb-4">即将完成！</h1>
           <p className="text-lg opacity-90">
-            Create a new password for your account. Make sure it's strong and unique.
+            为您的账户创建新密码。请确保密码强度高且独特。
           </p>
           <div className="mt-6 space-y-3">
             <div className="flex items-center text-white/80">
               <CheckCircle className="h-5 w-5 mr-3 flex-shrink-0" />
-              <span className="text-sm">At least 8 characters long</span>
+              <span className="text-sm">至少8位字符</span>
             </div>
             <div className="flex items-center text-white/80">
               <CheckCircle className="h-5 w-5 mr-3 flex-shrink-0" />
-              <span className="text-sm">Mix of letters and numbers</span>
+              <span className="text-sm">字母和数字混合</span>
             </div>
             <div className="flex items-center text-white/80">
               <CheckCircle className="h-5 w-5 mr-3 flex-shrink-0" />
-              <span className="text-sm">Unique to this account</span>
+              <span className="text-sm">此账户专用</span>
             </div>
           </div>
         </div>
@@ -142,10 +142,10 @@ function ResetPasswordForm() {
               />
             </div>
             <h2 className="text-center text-3xl font-extrabold text-gray-900">
-              Reset your password
+              重置您的密码
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Enter your new password below
+              请在下方输入您的新密码
             </p>
           </div>
           
@@ -153,7 +153,7 @@ function ResetPasswordForm() {
             <div className="space-y-4">
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                  New password
+                  新密码
                 </label>
                 <input
                   id="password"
@@ -164,13 +164,13 @@ function ResetPasswordForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                  placeholder="Enter new password"
+                  placeholder="请输入新密码"
                 />
               </div>
               
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                  Confirm new password
+                  确认新密码
                 </label>
                 <input
                   id="confirmPassword"
@@ -181,7 +181,7 @@ function ResetPasswordForm() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-                  placeholder="Confirm new password"
+                  placeholder="请确认新密码"
                 />
               </div>
             </div>
@@ -198,14 +198,14 @@ function ResetPasswordForm() {
                 disabled={loading}
                 className="btn-firecrawl-default w-full inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 h-10 px-4"
               >
-                {loading ? 'Resetting...' : 'Reset password'}
+                {loading ? '重置中...' : '重置密码'}
               </button>
             </div>
 
             <div className="text-center">
               <Link href="/login" className="text-sm text-orange-600 hover:text-orange-500 inline-flex items-center">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to login
+                返回登录
               </Link>
             </div>
           </form>
