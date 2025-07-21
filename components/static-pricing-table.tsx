@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Check, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useI18n } from '@/lib/i18n';
 
 interface StaticProduct {
   id: string;
@@ -27,6 +28,7 @@ interface StaticPricingTableProps {
 export default function StaticPricingTable({ products }: StaticPricingTableProps) {
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
   const router = useRouter();
+  const { t } = useI18n();
 
   const handleSignup = async (productId: string) => {
     setLoadingProductId(productId);
@@ -123,11 +125,11 @@ export default function StaticPricingTable({ products }: StaticPricingTableProps
                   ) : (
                     <>
                       <div className="flex items-center justify-between w-full transition-transform duration-300 group-hover:-translate-y-[150%]">
-                        <span>Get Started</span>
+                        <span>{t('plans.getStarted')}</span>
                         <span className="text-sm">→</span>
                       </div>
                       <div className="flex items-center justify-between w-full absolute inset-x-0 px-4 translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">
-                        <span>Get Started</span>
+                        <span>{t('plans.getStarted')}</span>
                         <span className="text-sm">→</span>
                       </div>
                     </>

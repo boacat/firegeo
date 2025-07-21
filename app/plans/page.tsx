@@ -3,60 +3,65 @@
 import PricingTable from '@/components/autumn/pricing-table';
 import StaticPricingTable from '@/components/static-pricing-table';
 import { useSession } from '@/lib/auth-client';
+import { useI18n } from '@/lib/i18n';
 
-// Static product details for unauthenticated users
-const staticProducts = [
-  {
-    id: "free",
-    name: "基础版",
-    description: "适合初次体验健康管理服务",
-    price: {
-      primaryText: "免费",
-      secondaryText: "无需信用卡"
+// Static product details for unauthenticated users - will be translated
+function getStaticProducts(t: any) {
+  return [
+    {
+      id: "free",
+      name: t('plans.free.name'),
+      description: t('plans.free.description'),
+      price: {
+        primaryText: t('plans.free.price.primary'),
+        secondaryText: t('plans.free.price.secondary')
+      },
+      items: [
+        { 
+          primaryText: t('plans.free.features.consultations.primary'),
+          secondaryText: t('plans.free.features.consultations.secondary')
+        },
+        {
+          primaryText: t('plans.free.features.support.primary'),
+          secondaryText: t('plans.free.features.support.secondary')
+        },
+        {
+          primaryText: t('plans.free.features.basic.primary'),
+          secondaryText: t('plans.free.features.basic.secondary')
+        }
+      ]
     },
-    items: [
-      { 
-        primaryText: "每月10次健康咨询",
-        secondaryText: "AI智能健康顾问"
+    {
+      id: "pro",
+      name: t('plans.pro.name'),
+      description: t('plans.pro.description'),
+      recommendText: t('plans.pro.recommend'),
+      price: {
+        primaryText: t('plans.pro.price.primary'),
+        secondaryText: t('plans.pro.price.secondary')
       },
-      {
-        primaryText: "社区支持",
-        secondaryText: "获得社区用户帮助"
-      },
-      {
-        primaryText: "基础功能",
-        secondaryText: "BMI和卡路里计算器"
-      }
-    ]
-  },
-  {
-    id: "pro",
-    name: "专业版",
-    description: "满足您的全面健康管理需求",
-    recommendText: "最受欢迎",
-    price: {
-      primaryText: "¥68/月",
-      secondaryText: "按月计费"
-    },
-    items: [
-      { 
-        primaryText: "每月100次健康咨询",
-        secondaryText: "AI智能健康顾问"
-      },
-      {
-        primaryText: "专业支持",
-        secondaryText: "获得专业团队帮助"
-      },
-      {
-        primaryText: "优先体验",
-        secondaryText: "优先体验新功能"
-      }
-    ]
-  }
-];
+      items: [
+        { 
+          primaryText: t('plans.pro.features.consultations.primary'),
+          secondaryText: t('plans.pro.features.consultations.secondary')
+        },
+        {
+          primaryText: t('plans.pro.features.support.primary'),
+          secondaryText: t('plans.pro.features.support.secondary')
+        },
+        {
+          primaryText: t('plans.pro.features.priority.primary'),
+          secondaryText: t('plans.pro.features.priority.secondary')
+        }
+      ]
+    }
+  ];
+}
 
 export default function PricingPage() {
   const { data: session } = useSession();
+  const { t } = useI18n();
+  const staticProducts = getStaticProducts(t);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-12">
@@ -64,15 +69,15 @@ export default function PricingPage() {
         <div className="text-center mb-16">
           <h1 className="text-[3rem] lg:text-[4.5rem] font-bold tracking-tight mb-6">
             <span className="bg-gradient-to-tr from-orange-600 to-orange-400 bg-clip-text text-transparent">
-              简单透明的健康套餐
+              {t('plans.title')}
             </span>
           </h1>
           <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
-            选择最适合您的健康管理套餐，随时灵活升级或降级。
+            {t('plans.description')}
           </p>
           {session && (
             <p className="text-sm text-zinc-500 mt-4">
-              当前登录用户: {session.user?.email}
+              {t('plans.currentUser')}: {session.user?.email}
             </p>
           )}
         </div>

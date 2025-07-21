@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslation } from "@/lib/i18n";
 
 export default function Home() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
@@ -19,30 +21,30 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 animate-fade-in-up">
-              <span className="block text-zinc-900">健康计算器</span>
+              <span className="block text-zinc-900">{t('home.hero.title')}</span>
               <span className="block bg-gradient-to-r from-green-600 to-blue-500 bg-clip-text text-transparent">
-                智能健康管理平台
+                {t('home.hero.subtitle')}
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-zinc-600 max-w-3xl mx-auto mb-6 animate-fade-in-up animation-delay-200">
-              专业的健康指标计算与个性化健康建议
+              {t('home.hero.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
               <Link
                 href="/health-calculators"
                 className="btn-firecrawl-orange inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
               >
-                开始健康计算
+                {t('home.hero.startButton')}
               </Link>
               <Link
                 href="/plans"
                 className="btn-firecrawl-default inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
               >
-                查看套餐
+                {t('home.hero.plansButton')}
               </Link>
             </div>
             <p className="mt-6 text-sm text-zinc-500 animate-fade-in-up animation-delay-600">
-              AI驱动 • 实时计算 • 个性化建议 • 健康追踪
+              {t('home.hero.features')}
             </p>
           </div>
 
@@ -50,20 +52,20 @@ export default function Home() {
           <div className="mt-20 bg-zinc-900 rounded-[20px] p-12 animate-fade-in-scale animation-delay-800">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center animate-fade-in-up animation-delay-1000">
-                <div className="text-4xl font-bold text-white">BMI</div>
-                <div className="text-sm text-zinc-400 mt-1">身体质量指数</div>
+                <div className="text-4xl font-bold text-white">{t('home.stats.bmi.title')}</div>
+                <div className="text-sm text-zinc-400 mt-1">{t('home.stats.bmi.description')}</div>
               </div>
               <div className="text-center animate-fade-in-up animation-delay-1000" style={{animationDelay: '1100ms'}}>
-                <div className="text-4xl font-bold text-white">卡路里</div>
-                <div className="text-sm text-zinc-400 mt-1">热量计算</div>
+                <div className="text-4xl font-bold text-white">{t('home.stats.calories.title')}</div>
+                <div className="text-sm text-zinc-400 mt-1">{t('home.stats.calories.description')}</div>
               </div>
               <div className="text-center animate-fade-in-up animation-delay-1000" style={{animationDelay: '1200ms'}}>
-                <div className="text-4xl font-bold text-white">体脂率</div>
-                <div className="text-sm text-zinc-400 mt-1">身体成分</div>
+                <div className="text-4xl font-bold text-white">{t('home.stats.bodyFat.title')}</div>
+                <div className="text-sm text-zinc-400 mt-1">{t('home.stats.bodyFat.description')}</div>
               </div>
               <div className="text-center animate-fade-in-up animation-delay-1000" style={{animationDelay: '1300ms'}}>
-                <div className="text-4xl font-bold text-white">健康建议</div>
-                <div className="text-sm text-zinc-400 mt-1">个性化指导</div>
+                <div className="text-4xl font-bold text-white">{t('home.stats.advice.title')}</div>
+                <div className="text-sm text-zinc-400 mt-1">{t('home.stats.advice.description')}</div>
               </div>
             </div>
           </div>
@@ -76,128 +78,128 @@ export default function Home() {
           <div className="bg-gray-50 rounded-[30px] p-16">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-zinc-900 mb-4">
-                选择适合您的健康计划
+                {t('home.pricing.title')}
               </h2>
               <p className="text-xl text-zinc-600">
-                专业的健康管理服务，助您达成健康目标
+                {t('home.pricing.description')}
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Starter */}
             <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-400 hover:scale-105 transition-all duration-200">
-              <h3 className="text-2xl font-bold mb-2">基础版</h3>
-              <p className="text-zinc-600 mb-6">适合个人健康管理</p>
+              <h3 className="text-2xl font-bold mb-2">{t('home.pricing.starter.title')}</h3>
+              <p className="text-zinc-600 mb-6">{t('home.pricing.starter.description')}</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold">免费</span>
-                <span className="text-zinc-600">/月</span>
+                <span className="text-4xl font-bold">{t('home.pricing.starter.price')}</span>
+                <span className="text-zinc-600">{t('home.pricing.starter.period')}</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  每月10次计算
+                  {t('home.pricing.starter.feature1')}
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  基础健康指标
+                  {t('home.pricing.starter.feature2')}
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  健康报告
+                  {t('home.pricing.starter.feature3')}
                 </li>
               </ul>
               <Link
                 href="/register"
                 className="btn-firecrawl-outline w-full inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-10 px-4"
               >
-                免费开始
+                {t('home.pricing.starter.button')}
               </Link>
             </div>
 
             {/* Pro - Featured */}
             <div className="bg-white p-8 rounded-[20px] border-2 border-orange-500 relative animate-fade-in-up animation-delay-600 hover:scale-105 transition-all duration-200">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                最受欢迎
+                {t('home.pricing.pro.badge')}
               </div>
-              <h3 className="text-2xl font-bold mb-2">专业版</h3>
-              <p className="text-zinc-600 mb-6">适合健身爱好者</p>
+              <h3 className="text-2xl font-bold mb-2">{t('home.pricing.pro.title')}</h3>
+              <p className="text-zinc-600 mb-6">{t('home.pricing.pro.description')}</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold">¥49</span>
-                <span className="text-zinc-600">/月</span>
+                <span className="text-4xl font-bold">{t('home.pricing.pro.price')}</span>
+                <span className="text-zinc-600">{t('home.pricing.pro.period')}</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  无限次健康计算
+                  {t('home.pricing.pro.feature1')}
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  全部健康指标
+                  {t('home.pricing.pro.feature2')}
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  实时健康提醒
+                  {t('home.pricing.pro.feature3')}
                 </li>
               </ul>
               <Link
                 href="/register"
                 className="btn-firecrawl-orange w-full inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-10 px-4"
               >
-                免费试用
+                {t('home.pricing.pro.button')}
               </Link>
             </div>
 
             {/* Enterprise */}
             <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-800 hover:scale-105 transition-all duration-200">
-              <h3 className="text-2xl font-bold mb-2">企业版</h3>
-              <p className="text-zinc-600 mb-6">适合医疗机构和企业</p>
+              <h3 className="text-2xl font-bold mb-2">{t('home.pricing.enterprise.title')}</h3>
+              <p className="text-zinc-600 mb-6">{t('home.pricing.enterprise.description')}</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold">定制</span>
+                <span className="text-4xl font-bold">{t('home.pricing.enterprise.price')}</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  多用户管理
+                  {t('home.pricing.enterprise.feature1')}
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  API接口
+                  {t('home.pricing.enterprise.feature2')}
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  私有化部署
+                  {t('home.pricing.enterprise.feature3')}
                 </li>
               </ul>
               <Link
                 href="/contact"
                 className="btn-firecrawl-outline w-full inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-10 px-4"
               >
-                联系销售
+                {t('home.pricing.enterprise.button')}
               </Link>
             </div>
             </div>
 
             <div className="text-center mt-12">
               <Link href="/plans" className="text-orange-600 hover:text-orange-700 font-medium">
-                查看详细套餐 →
+                {t('home.pricing.viewPlans')} →
               </Link>
             </div>
           </div>
@@ -210,16 +212,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-[30px] p-16 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
-              开始您的健康管理之旅
+              {t('home.cta1.title')}
             </h2>
             <p className="text-xl text-orange-100 mb-8">
-              专业的健康指标计算，个性化的健康建议，助您达成健康目标
+              {t('home.cta1.description')}
             </p>
             <Link
-              href="/health-calculator"
+              href="/health-calculators"
               className="btn-firecrawl-default inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
             >
-              免费健康分析
+              {t('home.cta1.button')}
             </Link>
           </div>
         </div>
@@ -231,10 +233,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-zinc-900 mb-4 animate-fade-in-up">
-              常见问题
+              {t('home.faq.title')}
             </h2>
             <p className="text-xl text-zinc-600 animate-fade-in-up animation-delay-200">
-              关于健康计算器您需要了解的一切
+              {t('home.faq.description')}
             </p>
           </div>
 
@@ -246,7 +248,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  健康计算器如何工作？
+                  {t('home.faq.question1')}
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 0 ? 'rotate-180' : ''}`}
@@ -260,7 +262,7 @@ export default function Home() {
               {openFaq === 0 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    健康计算器通过科学的算法分析您的身体数据，包括身高、体重、年龄等基础信息，计算出BMI、体脂率、基础代谢率等关键健康指标。系统会根据您的个人情况提供个性化的健康建议和改善方案。
+                    {t('home.faq.answer1')}
                   </p>
                 </div>
               )}
@@ -273,7 +275,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  支持哪些健康指标计算？
+                  {t('home.faq.question2')}
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 1 ? 'rotate-180' : ''}`}
@@ -287,7 +289,7 @@ export default function Home() {
               {openFaq === 1 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    我们支持多种健康指标计算，包括BMI（身体质量指数）、体脂率、基础代谢率、理想体重、每日热量需求、心率区间等。系统会持续更新算法，确保计算结果的准确性和科学性。
+                    {t('home.faq.answer2')}
                   </p>
                 </div>
               )}
@@ -300,7 +302,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  数据多久更新一次？
+                  {t('home.faq.question3')}
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 2 ? 'rotate-180' : ''}`}
@@ -314,7 +316,7 @@ export default function Home() {
               {openFaq === 2 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    健康数据实时计算更新。每次您输入新的身体数据时，系统会立即重新计算所有相关指标。您可以随时记录新的数据来跟踪健康变化，查看健康改善的进展情况。
+                    {t('home.faq.answer3')}
                   </p>
                 </div>
               )}
@@ -327,7 +329,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  我能获得什么样的健康洞察？
+                  {t('home.faq.question4')}
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 3 ? 'rotate-180' : ''}`}
@@ -341,7 +343,7 @@ export default function Home() {
               {openFaq === 3 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    您将获得详细的健康评分、身体成分分析、营养需求建议、运动计划推荐以及具体的健康改善建议。平台还会跟踪您的健康趋势变化，并在发现重要变化时提醒您。
+                    {t('home.faq.answer4')}
                   </p>
                 </div>
               )}
@@ -354,7 +356,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  需要多少计算次数？
+                  {t('home.faq.question5')}
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 4 ? 'rotate-180' : ''}`}
@@ -368,7 +370,7 @@ export default function Home() {
               {openFaq === 4 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    每次健康分析消耗1个计算次数。免费版每月提供10次计算，足够进行基础的健康监测。专业版提供无限次计算，适合需要频繁监测健康状况的用户。
+                    {t('home.faq.answer5')}
                   </p>
                 </div>
               )}
@@ -381,23 +383,23 @@ export default function Home() {
       <section className="py-24 bg-zinc-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-6">
-            开始您的健康管理之旅
+            {t('home.cta2.title')}
           </h2>
           <p className="text-xl text-zinc-400 mb-8">
-            掌控您的健康数据，获得专业的健康指导
+            {t('home.cta2.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/health-calculator"
+              href="/health-calculators"
               className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
             >
-              开始健康分析
+              {t('home.cta2.button1')}
             </Link>
             <Link
               href="/plans"
               className="inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8 bg-zinc-800 text-white hover:bg-zinc-700"
             >
-              查看套餐
+              {t('home.cta2.button2')}
             </Link>
           </div>
         </div>

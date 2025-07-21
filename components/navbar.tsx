@@ -6,17 +6,20 @@ import { useSession, signOut } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useCustomer } from '@/hooks/useAutumnCustomer';
+import { useI18n } from '@/lib/i18n';
+import { LanguageSwitcher } from '@/components/language-switcher';
 
 // Separate component that only renders when Autumn is available
 function UserCredits() {
   const { customer } = useCustomer();
+  const { t } = useI18n();
   const messageUsage = customer?.features?.messages;
   const remainingMessages = messageUsage ? (messageUsage.balance || 0) : 0;
   
   return (
     <div className="flex items-center text-sm font-medium text-gray-700">
       <span>{remainingMessages}</span>
-      <span className="ml-1">计算次数</span>
+      <span className="ml-1">{t('nav.calculations')}</span>
     </div>
   );
 }
@@ -24,6 +27,7 @@ function UserCredits() {
 export function Navbar() {
   const { data: session, isPending } = useSession();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { t } = useI18n();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -48,7 +52,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <div className="text-xl font-bold text-green-600">
-                健康计算器
+                {t('nav.healthCalculators')}
               </div>
             </Link>
           </div>
@@ -57,16 +61,28 @@ export function Navbar() {
             {session && (
               <>
                 <Link
-                  href="/health-calculator"
+                  href="/health-calculators"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
-                  健康计算
+                  {t('nav.healthCalculators')}
                 </Link>
                 <Link
-                  href="/brand-monitor"
+                  href="/health-reports"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
-                  健康分析
+                  {t('nav.healthReports')}
+                </Link>
+                <Link
+                  href="/health-news"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  {t('nav.healthNews')}
+                </Link>
+                <Link
+                  href="/chat"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  {t('nav.chat')}
                 </Link>
               </>
             )}
@@ -74,27 +90,28 @@ export function Navbar() {
                 href="/plans"
                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
               >
-                健康套餐
+                {t('nav.plans')}
               </Link>
             {session && (
               <UserCredits />
             )}
+            <LanguageSwitcher variant="ghost" size="sm" />
             {isPending ? (
-              <div className="text-sm text-gray-400">加载中...</div>
+              <div className="text-sm text-gray-400">{t('common.loading')}</div>
             ) : session ? (
               <>
                 <Link
                   href="/dashboard"
                   className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-8 px-3"
                 >
-                  健康仪表板
+                  {t('nav.dashboard')}
                 </Link>
                 <button
                   onClick={handleLogout}
                   disabled={isLoggingOut}
                   className="btn-firecrawl-default inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 h-8 px-3"
                 >
-                  {isLoggingOut ? '退出中...' : '退出'}
+                  {isLoggingOut ? t('nav.loggingOut') : t('nav.logout')}
                 </button>
               </>
             ) : (
@@ -103,13 +120,13 @@ export function Navbar() {
                   href="/login"
                   className="bg-black text-white hover:bg-gray-800 inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-8 px-3 shadow-sm hover:shadow-md"
                 >
-                  登录
+                  {t('nav.login')}
                 </Link>
                 <Link 
                   href="/register"
                   className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-sm font-medium transition-all duration-200 h-8 px-3"
                 >
-                  注册
+                  {t('nav.register')}
                 </Link>
               </>
             )}

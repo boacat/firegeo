@@ -1,7 +1,11 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
+import { useI18n } from "@/lib/i18n";
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="bg-white text-zinc-600 border-t border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -9,10 +13,10 @@ export function Footer() {
           {/* Logo and description */}
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
-              <h2 className="text-xl font-bold text-zinc-900">健康计算器</h2>
+              <h2 className="text-xl font-bold text-zinc-900">{t('footer.title')}</h2>
             </div>
             <p className="text-sm mb-4">
-              专业的健康数据分析平台，为您提供精准的健康指标计算和个性化健康建议。
+              {t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <a
@@ -50,26 +54,26 @@ export function Footer() {
 
           {/* 健康工具 */}
           <div>
-            <h3 className="text-zinc-900 font-semibold mb-4">健康工具</h3>
+            <h3 className="text-zinc-900 font-semibold mb-4">{t('footer.tools.title')}</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/bmi-calculator" className="hover:text-zinc-900 transition-colors">
-                  BMI计算器
+                  {t('footer.tools.bmi')}
                 </Link>
               </li>
               <li>
                 <Link href="/calorie-calculator" className="hover:text-zinc-900 transition-colors">
-                  卡路里计算器
+                  {t('footer.tools.calorie')}
                 </Link>
               </li>
               <li>
                 <Link href="/plans" className="hover:text-zinc-900 transition-colors">
-                  健康套餐
+                  {t('footer.tools.plans')}
                 </Link>
               </li>
               <li>
                 <Link href="/dashboard" className="hover:text-zinc-900 transition-colors">
-                  健康仪表板
+                  {t('footer.tools.dashboard')}
                 </Link>
               </li>
             </ul>
@@ -77,26 +81,26 @@ export function Footer() {
 
           {/* 关于我们 */}
           <div>
-            <h3 className="text-zinc-900 font-semibold mb-4">关于我们</h3>
+            <h3 className="text-zinc-900 font-semibold mb-4">{t('footer.about.title')}</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  关于我们
+                  {t('footer.about.about')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  健康资讯
+                  {t('footer.about.news')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  加入我们
+                  {t('footer.about.careers')}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-zinc-900 transition-colors">
-                  联系我们
+                  {t('footer.about.contact')}
                 </a>
               </li>
             </ul>
@@ -106,14 +110,14 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-zinc-200">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm">
-              © {new Date().getFullYear()} 健康计算器. 保留所有权利。
+              © {new Date().getFullYear()} {t('footer.copyright')}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-sm hover:text-zinc-900 transition-colors">
-                隐私政策
+                {t('footer.privacy')}
               </a>
               <a href="#" className="text-sm hover:text-zinc-900 transition-colors">
-                服务条款
+                {t('footer.terms')}
               </a>
             </div>
           </div>

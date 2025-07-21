@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useI18n } from "@/lib/i18n";
 
 interface Calculator {
   id: string;
@@ -16,66 +17,75 @@ interface Calculator {
   popular?: boolean;
 }
 
-const calculators: Calculator[] = [
+const calculatorData = [
   // 基础健康指标
-  { id: "bmi", name: "BMI计算器", description: "计算身体质量指数，评估体重状况", category: "基础指标", icon: "⚖️", path: "/bmi-calculator", popular: true },
-  { id: "calorie", name: "卡路里计算器", description: "计算每日所需卡路里和基础代谢率", category: "基础指标", icon: "🔥", path: "/calorie-calculator", popular: true },
-  { id: "body-fat", name: "体脂率计算器", description: "估算身体脂肪百分比", category: "基础指标", icon: "📊", path: "/body-fat-calculator" },
-  { id: "ideal-weight", name: "理想体重计算器", description: "根据身高计算理想体重范围", category: "基础指标", icon: "🎯", path: "/ideal-weight-calculator" },
-  { id: "waist-hip", name: "腰臀比计算器", description: "评估腹部肥胖风险", category: "基础指标", icon: "📏", path: "/waist-hip-calculator" },
+  { id: "bmi", icon: "⚖️", path: "/bmi-calculator", popular: true },
+  { id: "calorie", icon: "🔥", path: "/calorie-calculator", popular: true },
+  { id: "body-fat", icon: "📊", path: "/body-fat-calculator" },
+  { id: "ideal-weight", icon: "🎯", path: "/ideal-weight-calculator" },
+  { id: "waist-hip", icon: "📏", path: "/waist-hip-calculator" },
   
   // 心血管健康
-  { id: "heart-rate", name: "心率区间计算器", description: "计算运动时的目标心率区间", category: "心血管", icon: "❤️", path: "/heart-rate-calculator", popular: true },
-  { id: "blood-pressure", name: "血压评估器", description: "评估血压水平和健康风险", category: "心血管", icon: "🩺", path: "/blood-pressure-calculator" },
-  { id: "cholesterol", name: "胆固醇风险评估", description: "评估心血管疾病风险", category: "心血管", icon: "🫀", path: "/cholesterol-calculator" },
+  { id: "heart-rate", icon: "❤️", path: "/heart-rate-calculator", popular: true },
+  { id: "blood-pressure", icon: "🩺", path: "/blood-pressure-calculator" },
+  { id: "cholesterol", icon: "🫀", path: "/cholesterol-calculator" },
   
   // 营养与饮食
-  { id: "water", name: "每日饮水量计算器", description: "计算每日推荐饮水量", category: "营养饮食", icon: "💧", path: "/water-calculator" },
-  { id: "protein", name: "蛋白质需求计算器", description: "计算每日蛋白质需求量", category: "营养饮食", icon: "🥩", path: "/protein-calculator" },
-  { id: "macro", name: "宏量营养素计算器", description: "计算碳水、蛋白质、脂肪比例", category: "营养饮食", icon: "🍽️", path: "/macro-calculator" },
-  { id: "vitamin-d", name: "维生素D需求计算器", description: "评估维生素D需求量", category: "营养饮食", icon: "☀️", path: "/vitamin-d-calculator" },
+  { id: "water", icon: "💧", path: "/water-calculator" },
+  { id: "protein", icon: "🥩", path: "/protein-calculator" },
+  { id: "macro", icon: "🍽️", path: "/macro-calculator" },
+  { id: "vitamin-d", icon: "☀️", path: "/vitamin-d-calculator" },
   
   // 运动健身
-  { id: "exercise-calorie", name: "运动消耗计算器", description: "计算各种运动的卡路里消耗", category: "运动健身", icon: "🏃", path: "/exercise-calorie-calculator" },
-  { id: "one-rep-max", name: "最大重量计算器", description: "计算单次最大举重重量", category: "运动健身", icon: "🏋️", path: "/one-rep-max-calculator" },
-  { id: "pace", name: "跑步配速计算器", description: "计算跑步配速和完赛时间", category: "运动健身", icon: "🏃‍♂️", path: "/pace-calculator" },
-  { id: "vo2-max", name: "最大摄氧量计算器", description: "评估心肺功能水平", category: "运动健身", icon: "🫁", path: "/vo2-max-calculator" },
+  { id: "exercise-calorie", icon: "🏃", path: "/exercise-calorie-calculator" },
+  { id: "one-rep-max", icon: "🏋️", path: "/one-rep-max-calculator" },
+  { id: "pace", icon: "🏃‍♂️", path: "/pace-calculator" },
+  { id: "vo2-max", icon: "🫁", path: "/vo2-max-calculator" },
   
   // 女性健康
-  { id: "pregnancy-weight", name: "孕期体重计算器", description: "计算孕期合理体重增长", category: "女性健康", icon: "🤱", path: "/pregnancy-weight-calculator" },
-  { id: "ovulation", name: "排卵期计算器", description: "预测排卵期和受孕窗口", category: "女性健康", icon: "🌸", path: "/ovulation-calculator" },
-  { id: "menstrual", name: "月经周期计算器", description: "追踪和预测月经周期", category: "女性健康", icon: "📅", path: "/menstrual-calculator" },
+  { id: "pregnancy-weight", icon: "🤱", path: "/pregnancy-weight-calculator" },
+  { id: "ovulation", icon: "🌸", path: "/ovulation-calculator" },
+  { id: "menstrual", icon: "📅", path: "/menstrual-calculator" },
   
   // 儿童健康
-  { id: "child-growth", name: "儿童生长曲线", description: "评估儿童身高体重发育情况", category: "儿童健康", icon: "👶", path: "/child-growth-calculator" },
-  { id: "child-bmi", name: "儿童BMI计算器", description: "计算儿童和青少年BMI百分位", category: "儿童健康", icon: "🧒", path: "/child-bmi-calculator" },
+  { id: "child-growth", icon: "👶", path: "/child-growth-calculator" },
+  { id: "child-bmi", icon: "🧒", path: "/child-bmi-calculator" },
   
   // 老年健康
-  { id: "bone-density", name: "骨密度风险评估", description: "评估骨质疏松风险", category: "老年健康", icon: "🦴", path: "/bone-density-calculator" },
-  { id: "fall-risk", name: "跌倒风险评估", description: "评估老年人跌倒风险", category: "老年健康", icon: "🚶‍♂️", path: "/fall-risk-calculator" },
+  { id: "bone-density", icon: "🦴", path: "/bone-density-calculator" },
+  { id: "fall-risk", icon: "🚶‍♂️", path: "/fall-risk-calculator" },
   
   // 睡眠与压力
-  { id: "sleep", name: "睡眠需求计算器", description: "计算最佳睡眠时间和周期", category: "睡眠压力", icon: "😴", path: "/sleep-calculator" },
-  { id: "stress", name: "压力水平评估", description: "评估心理压力和健康影响", category: "睡眠压力", icon: "🧠", path: "/stress-calculator" },
+  { id: "sleep", icon: "😴", path: "/sleep-calculator" },
+  { id: "stress", icon: "🧠", path: "/stress-calculator" },
   
   // 特殊计算
-  { id: "diabetes-risk", name: "糖尿病风险评估", description: "评估2型糖尿病患病风险", category: "疾病风险", icon: "🩸", path: "/diabetes-risk-calculator" },
-  { id: "kidney", name: "肾功能计算器", description: "计算肾小球滤过率", category: "疾病风险", icon: "🫘", path: "/kidney-calculator" },
-  { id: "body-age", name: "身体年龄计算器", description: "评估身体的生理年龄", category: "综合评估", icon: "🎂", path: "/body-age-calculator" },
-  { id: "health-score", name: "健康评分计算器", description: "综合评估整体健康状况", category: "综合评估", icon: "🏆", path: "/health-score-calculator" },
-  { id: "life-expectancy", name: "预期寿命计算器", description: "基于生活方式预测预期寿命", category: "综合评估", icon: "⏳", path: "/life-expectancy-calculator" }
+  { id: "diabetes-risk", icon: "🩸", path: "/diabetes-risk-calculator" },
+  { id: "kidney", icon: "🫘", path: "/kidney-calculator" },
+  { id: "body-age", icon: "🎂", path: "/body-age-calculator" },
+  { id: "health-score", icon: "🏆", path: "/health-score-calculator" },
+  { id: "life-expectancy", icon: "⏳", path: "/life-expectancy-calculator" }
 ];
 
-const categories = Array.from(new Set(calculators.map(calc => calc.category)));
-
 export default function HealthCalculatorsPage() {
+  const { t } = useI18n();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("全部");
+  const [selectedCategory, setSelectedCategory] = useState(t('calculators.categories.all'));
+
+  // 使用翻译键创建计算器数组
+  const calculators: Calculator[] = calculatorData.map(calc => ({
+    ...calc,
+    name: t(`calculators.items.${calc.id}.name`),
+    description: t(`calculators.items.${calc.id}.description`),
+    category: t(`calculators.items.${calc.id}.category`)
+  }));
+
+  const categories = [t('calculators.categories.all'), ...Array.from(new Set(calculators.map(calc => calc.category)))];
 
   const filteredCalculators = calculators.filter(calc => {
     const matchesSearch = calc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          calc.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "全部" || calc.category === selectedCategory;
+    const matchesCategory = selectedCategory === t('calculators.categories.all') || calc.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -87,17 +97,17 @@ export default function HealthCalculatorsPage() {
         {/* 页面标题 */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            健康计算器大全
+            {t('calculators.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            30种专业健康计算器，全方位守护您的健康。从基础指标到专业评估，科学管理您的健康数据。
+            {t('calculators.subtitle')}
           </p>
         </div>
 
         {/* 热门计算器 */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            🔥 热门计算器
+            {t('calculators.popular')}
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {popularCalculators.map((calc) => (
@@ -124,7 +134,7 @@ export default function HealthCalculatorsPage() {
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1">
               <Input
-                placeholder="搜索计算器..."
+                placeholder={t('calculators.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="text-lg p-3"
@@ -132,14 +142,14 @@ export default function HealthCalculatorsPage() {
             </div>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => setSelectedCategory("全部")}
+                onClick={() => setSelectedCategory(t('calculators.categories.all'))}
                 className={`px-4 py-2 rounded-full transition-colors ${
-                  selectedCategory === "全部"
+                  selectedCategory === t('calculators.categories.all')
                     ? "bg-blue-600 text-white"
                     : "bg-white text-gray-700 hover:bg-gray-100"
                 }`}
               >
-                全部
+                {t('calculators.categories.all')}
               </button>
               {categories.map((category) => (
                 <button
@@ -182,36 +192,36 @@ export default function HealthCalculatorsPage() {
         {filteredCalculators.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">未找到相关计算器</h3>
-            <p className="text-gray-600">请尝试其他搜索词或选择不同的分类</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('calculators.noResults.title')}</h3>
+            <p className="text-gray-600">{t('calculators.noResults.description')}</p>
           </div>
         )}
 
         {/* 健康提示 */}
         <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            💡 健康管理小贴士
+            {t('calculators.healthTips.title')}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="text-3xl mb-3">📊</div>
-              <h3 className="font-semibold mb-2">定期监测</h3>
-              <p className="text-sm text-gray-600">定期使用健康计算器监测身体指标变化</p>
+              <h3 className="font-semibold mb-2">{t('calculators.healthTips.tip1.title')}</h3>
+              <p className="text-sm text-gray-600">{t('calculators.healthTips.tip1.description')}</p>
             </div>
             <div className="text-center">
               <div className="text-3xl mb-3">🎯</div>
-              <h3 className="font-semibold mb-2">设定目标</h3>
-              <p className="text-sm text-gray-600">根据计算结果设定合理的健康目标</p>
+              <h3 className="font-semibold mb-2">{t('calculators.healthTips.tip2.title')}</h3>
+              <p className="text-sm text-gray-600">{t('calculators.healthTips.tip2.description')}</p>
             </div>
             <div className="text-center">
               <div className="text-3xl mb-3">📈</div>
-              <h3 className="font-semibold mb-2">记录进展</h3>
-              <p className="text-sm text-gray-600">记录健康数据变化，追踪改善进展</p>
+              <h3 className="font-semibold mb-2">{t('calculators.healthTips.tip3.title')}</h3>
+              <p className="text-sm text-gray-600">{t('calculators.healthTips.tip3.description')}</p>
             </div>
             <div className="text-center">
               <div className="text-3xl mb-3">👨‍⚕️</div>
-              <h3 className="font-semibold mb-2">专业咨询</h3>
-              <p className="text-sm text-gray-600">如有异常请及时咨询专业医生</p>
+              <h3 className="font-semibold mb-2">{t('calculators.healthTips.tip4.title')}</h3>
+              <p className="text-sm text-gray-600">{t('calculators.healthTips.tip4.description')}</p>
             </div>
           </div>
         </div>

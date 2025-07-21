@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import { useI18n } from "@/lib/i18n";
 
 export default function ExerciseCalorieCalculatorPage() {
+  const { t } = useI18n();
   const [weight, setWeight] = useState("");
   const [exercise, setExercise] = useState("");
   const [duration, setDuration] = useState("");
@@ -80,30 +82,17 @@ export default function ExerciseCalorieCalculatorPage() {
     }
   };
 
-  const exerciseNames: { [key: string]: string } = {
-    running: "跑步",
-    cycling: "骑行",
-    swimming: "游泳",
-    walking: "步行",
-    basketball: "篮球",
-    football: "足球",
-    tennis: "网球",
-    badminton: "羽毛球",
-    yoga: "瑜伽",
-    weightlifting: "举重",
-    dancing: "舞蹈",
-    hiking: "徒步"
+  const getExerciseName = (key: string) => {
+    return t(`calculators.exercise.exercises.${key}`);
   };
 
-  const intensityNames: { [key: string]: string } = {
-    light: "轻度",
-    moderate: "中度",
-    vigorous: "高强度"
+  const getIntensityName = (key: string) => {
+    return t(`calculators.exercise.intensities.${key}`);
   };
 
   const calculateCalories = () => {
     if (!weight || !exercise || !duration || !intensity) {
-      alert("请填写所有必填项");
+      alert(t('calculators.exercise.validation.fillAllFields'));
       return;
     }
 
@@ -135,8 +124,8 @@ export default function ExerciseCalorieCalculatorPage() {
       caloriesBurned: Math.round(caloriesBurned),
       fatBurned: fatBurned.toFixed(1),
       met,
-      exerciseName: exerciseNames[exercise],
-      intensityName: intensityNames[intensity],
+      exerciseName: getExerciseName(exercise),
+      intensityName: getIntensityName(intensity),
       foodEquivalents,
       weightComparison
     });
@@ -154,9 +143,9 @@ export default function ExerciseCalorieCalculatorPage() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-100 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">🏃 运动消耗计算器</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('calculators.exercise.title')}</h1>
           <p className="text-lg text-gray-600">
-            精确计算各种运动的卡路里消耗，科学指导您的健身计划
+            {t('calculators.exercise.subtitle')}
           </p>
         </div>
 
@@ -164,54 +153,54 @@ export default function ExerciseCalorieCalculatorPage() {
           {/* 输入表单 */}
           <Card>
             <CardHeader>
-              <CardTitle>运动信息</CardTitle>
+              <CardTitle>{t('calculators.exercise.inputInfo')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="weight">体重 (kg) *</Label>
+                <Label htmlFor="weight">{t('calculators.exercise.weight')}</Label>
                 <Input
                   id="weight"
                   type="number"
-                  placeholder="例如：70"
+                  placeholder={t('calculators.exercise.weightPlaceholder')}
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                 />
               </div>
 
               <div>
-                <Label htmlFor="exercise">运动类型 *</Label>
+                <Label htmlFor="exercise">{t('calculators.exercise.exerciseType')}</Label>
                 <Select value={exercise} onValueChange={setExercise}>
                   <SelectTrigger>
-                    <SelectValue placeholder="选择运动类型" />
+                    <SelectValue placeholder={t('calculators.exercise.selectExercise')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(exerciseNames).map(([key, name]) => (
-                      <SelectItem key={key} value={key}>{name}</SelectItem>
+                    {Object.keys(exerciseDatabase).map((key) => (
+                      <SelectItem key={key} value={key}>{getExerciseName(key)}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
-                <Label htmlFor="intensity">运动强度 *</Label>
+                <Label htmlFor="intensity">{t('calculators.exercise.intensity')}</Label>
                 <Select value={intensity} onValueChange={setIntensity}>
                   <SelectTrigger>
-                    <SelectValue placeholder="选择运动强度" />
+                    <SelectValue placeholder={t('calculators.exercise.selectIntensity')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">轻度 - 轻松，可以正常对话</SelectItem>
-                    <SelectItem value="moderate">中度 - 稍微费力，对话略困难</SelectItem>
-                    <SelectItem value="vigorous">高强度 - 很费力，难以对话</SelectItem>
+                    <SelectItem value="light">{getIntensityName('light')}</SelectItem>
+                    <SelectItem value="moderate">{getIntensityName('moderate')}</SelectItem>
+                    <SelectItem value="vigorous">{getIntensityName('vigorous')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
-                <Label htmlFor="duration">运动时间 (分钟) *</Label>
+                <Label htmlFor="duration">{t('calculators.exercise.duration')}</Label>
                 <Input
                   id="duration"
                   type="number"
-                  placeholder="例如：30"
+                  placeholder={t('calculators.exercise.durationPlaceholder')}
                   value={duration}
                   onChange={(e) => setDuration(e.target.value)}
                 />
@@ -219,10 +208,10 @@ export default function ExerciseCalorieCalculatorPage() {
 
               <div className="flex gap-4 pt-4">
                 <Button onClick={calculateCalories} className="flex-1">
-                  计算消耗
+                  {t('calculators.exercise.calculate')}
                 </Button>
                 <Button variant="outline" onClick={resetForm}>
-                  重置
+                  {t('calculators.exercise.reset')}
                 </Button>
               </div>
             </CardContent>
@@ -232,14 +221,14 @@ export default function ExerciseCalorieCalculatorPage() {
           {result && (
             <Card>
               <CardHeader>
-                <CardTitle>消耗结果</CardTitle>
+                <CardTitle>{t('calculators.exercise.resultTitle')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Alert>
                   <AlertDescription>
                     <div className="text-center">
                       <div className="text-3xl font-bold text-green-600">{result.caloriesBurned}</div>
-                      <div className="text-sm text-gray-600">卡路里消耗</div>
+                      <div className="text-sm text-gray-600">{t('calculators.exercise.caloriesBurned')}</div>
                     </div>
                   </AlertDescription>
                 </Alert>
@@ -247,34 +236,34 @@ export default function ExerciseCalorieCalculatorPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-blue-50 p-3 rounded-lg text-center">
                     <div className="text-lg font-semibold text-blue-600">{result.fatBurned}g</div>
-                    <div className="text-xs text-gray-600">脂肪燃烧</div>
+                    <div className="text-xs text-gray-600">{t('calculators.exercise.fatBurned')}</div>
                   </div>
                   <div className="bg-purple-50 p-3 rounded-lg text-center">
                     <div className="text-lg font-semibold text-purple-600">{result.met}</div>
-                    <div className="text-xs text-gray-600">MET值</div>
+                    <div className="text-xs text-gray-600">{t('calculators.exercise.metValue')}</div>
                   </div>
                 </div>
 
                 <Separator />
 
                 <div>
-                  <h4 className="font-semibold mb-2">相当于消耗</h4>
+                  <h4 className="font-semibold mb-2">{t('calculators.exercise.foodEquivalents')}</h4>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div className="flex justify-between">
-                      <span>🍚 米饭:</span>
-                      <span>{result.foodEquivalents.rice} 碗</span>
+                      <span>🍚 {t('calculators.exercise.foods.rice')}</span>
+                      <span>{result.foodEquivalents.rice} {t('calculators.exercise.foods.riceBowls')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>🍎 苹果:</span>
-                      <span>{result.foodEquivalents.apple} 个</span>
+                      <span>🍎 {t('calculators.exercise.foods.apple')}</span>
+                      <span>{result.foodEquivalents.apple} {t('calculators.exercise.foods.appleCount')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>🍫 巧克力:</span>
-                      <span>{result.foodEquivalents.chocolate} 块</span>
+                      <span>🍫 {t('calculators.exercise.foods.chocolate')}</span>
+                      <span>{result.foodEquivalents.chocolate} {t('calculators.exercise.foods.chocolatePieces')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>🥤 可乐:</span>
-                      <span>{result.foodEquivalents.coke} 杯</span>
+                      <span>🥤 {t('calculators.exercise.foods.coke')}</span>
+                      <span>{result.foodEquivalents.coke} {t('calculators.exercise.foods.cokeCups')}</span>
                     </div>
                   </div>
                 </div>
@@ -282,16 +271,16 @@ export default function ExerciseCalorieCalculatorPage() {
                 <Separator />
 
                 <div>
-                  <h4 className="font-semibold mb-2">体重对比</h4>
+                  <h4 className="font-semibold mb-2">{t('calculators.exercise.weightComparison')}</h4>
                   <div className="text-sm space-y-1">
-                    <div className="flex justify-between">
-                      <span>体重-10kg:</span>
-                      <span>{result.weightComparison.lighter} 卡路里</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>体重+10kg:</span>
-                      <span>{result.weightComparison.heavier} 卡路里</span>
-                    </div>
+                     <div className="flex justify-between">
+                       <span>{t('calculators.exercise.weightComparisonLabels.lighter')}</span>
+                       <span>{result.weightComparison.lighter} {t('calculators.exercise.weightComparisonLabels.calories')}</span>
+                     </div>
+                     <div className="flex justify-between">
+                       <span>{t('calculators.exercise.weightComparisonLabels.heavier')}</span>
+                       <span>{result.weightComparison.heavier} {t('calculators.exercise.weightComparisonLabels.calories')}</span>
+                     </div>
                   </div>
                 </div>
               </CardContent>
@@ -303,45 +292,45 @@ export default function ExerciseCalorieCalculatorPage() {
         <div className="mt-12 grid md:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-green-600">🔥 高消耗运动</CardTitle>
+              <CardTitle className="text-green-600">{t('calculators.exercise.guides.highIntensity.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="text-sm space-y-2">
-                <li>• 跑步 (8-12 MET)</li>
-                <li>• 游泳 (6-11 MET)</li>
-                <li>• 骑行 (4-10 MET)</li>
-                <li>• 足球 (5-10 MET)</li>
-                <li>• 篮球 (4.5-8 MET)</li>
+                <li>• Running (8-12 MET)</li>
+                <li>• Swimming (6-11 MET)</li>
+                <li>• Cycling (4-10 MET)</li>
+                <li>• Football (5-10 MET)</li>
+                <li>• Basketball (4.5-8 MET)</li>
               </ul>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-blue-600">⚖️ 中等消耗运动</CardTitle>
+              <CardTitle className="text-blue-600">{t('calculators.exercise.guides.mediumIntensity.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="text-sm space-y-2">
-                <li>• 网球 (5-8 MET)</li>
-                <li>• 羽毛球 (4.5-7 MET)</li>
-                <li>• 举重 (3-6 MET)</li>
-                <li>• 舞蹈 (3-7.8 MET)</li>
-                <li>• 徒步 (4-8 MET)</li>
+                <li>• Tennis (5-8 MET)</li>
+                <li>• Badminton (4.5-7 MET)</li>
+                <li>• Weightlifting (3-6 MET)</li>
+                <li>• Dancing (3-7.8 MET)</li>
+                <li>• Hiking (4-8 MET)</li>
               </ul>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-purple-600">🧘 低消耗运动</CardTitle>
+              <CardTitle className="text-purple-600">{t('calculators.exercise.guides.lowIntensity.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="text-sm space-y-2">
-                <li>• 瑜伽 (2.5-4 MET)</li>
-                <li>• 步行 (2.5-5 MET)</li>
-                <li>• 太极 (3-4 MET)</li>
-                <li>• 拉伸 (2.3 MET)</li>
-                <li>• 慢舞 (3 MET)</li>
+                <li>• Walking (2-4 MET)</li>
+                <li>• Yoga (2-4 MET)</li>
+                <li>• Tai Chi (1.5-4 MET)</li>
+                <li>• Stretching (2.3 MET)</li>
+                <li>• Light housework (2-3.5 MET)</li>
               </ul>
             </CardContent>
           </Card>
@@ -350,26 +339,26 @@ export default function ExerciseCalorieCalculatorPage() {
         {/* 运动建议 */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>💡 运动建议</CardTitle>
+            <CardTitle>{t('calculators.exercise.advice.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-semibold mb-2">减重建议</h3>
+                <h3 className="font-semibold mb-2">{t('calculators.exercise.advice.weightLoss.title')}</h3>
                 <ul className="text-sm space-y-1">
-                  <li>• 每周至少150分钟中等强度运动</li>
-                  <li>• 或75分钟高强度运动</li>
-                  <li>• 结合有氧和力量训练</li>
-                  <li>• 创造每日300-500卡路里缺口</li>
+                  <li>• Combine aerobic and strength training</li>
+                  <li>• Exercise at least 150 minutes per week</li>
+                  <li>• Maintain consistent workout schedule</li>
+                  <li>• Gradually increase exercise intensity</li>
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">注意事项</h3>
+                <h3 className="font-semibold mb-2">{t('calculators.exercise.advice.precautions.title')}</h3>
                 <ul className="text-sm space-y-1">
-                  <li>• 运动前充分热身</li>
-                  <li>• 根据体能循序渐进</li>
-                  <li>• 注意补充水分</li>
-                  <li>• 运动后适当拉伸</li>
+                  <li>• Warm up before exercising</li>
+                  <li>• Stay hydrated during workouts</li>
+                  <li>• Listen to your body and rest when needed</li>
+                  <li>• Consult doctor before starting new exercise program</li>
                 </ul>
               </div>
             </div>
@@ -379,26 +368,24 @@ export default function ExerciseCalorieCalculatorPage() {
         {/* 使用说明 */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>📋 使用说明</CardTitle>
+            <CardTitle>{t('calculators.exercise.instructions.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-semibold mb-2">计算原理</h3>
+                <h3 className="font-semibold mb-2">{t('calculators.exercise.instructions.principle.title')}</h3>
                 <ul className="text-sm space-y-1">
-                  <li>• 基于MET (代谢当量) 值计算</li>
-                  <li>• 公式：MET × 体重 × 时间</li>
-                  <li>• 考虑运动强度差异</li>
-                  <li>• 数据来源于运动生理学研究</li>
+                  {t('calculators.exercise.instructions.principle.points', { returnObjects: true }).map((point: string, index: number) => (
+                    <li key={index}>• {point}</li>
+                  ))}
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">准确性说明</h3>
+                <h3 className="font-semibold mb-2">{t('calculators.exercise.instructions.accuracy.title')}</h3>
                 <ul className="text-sm space-y-1">
-                  <li>• 结果为估算值，个体差异较大</li>
-                  <li>• 实际消耗受体能、技术等影响</li>
-                  <li>• 建议结合心率监测设备</li>
-                  <li>• 仅供健身参考，不替代专业指导</li>
+                  {t('calculators.exercise.instructions.accuracy.points', { returnObjects: true }).map((point: string, index: number) => (
+                    <li key={index}>• {point}</li>
+                  ))}
                 </ul>
               </div>
             </div>
